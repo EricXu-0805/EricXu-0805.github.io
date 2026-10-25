@@ -1,0 +1,23 @@
+name: Link check
+
+on:
+  schedule:
+    - cron: "0 15 * * 1"
+  workflow_dispatch:
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: lycheeverse/lychee-action@v2
+        with:
+          # LinkedIn and X block crawlers, so they always look broken.
+          args: >-
+            --no-progress
+            --accept 200,206,429
+            --exclude linkedin\.com
+            --exclude x\.com
+            index.html
+            https://raw.githubusercontent.com/EricXu-0805/EricXu-0805/HEAD/README.md
+          fail: true
