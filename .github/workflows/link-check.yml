@@ -12,12 +12,16 @@ jobs:
       - uses: actions/checkout@v4
       - uses: lycheeverse/lychee-action@v2
         with:
-          # LinkedIn and X block crawlers, so they always look broken.
+          # These sites block CI crawlers (403/999/400), so they always look broken.
           args: >-
             --no-progress
             --accept 200,206,429
             --exclude linkedin\.com
             --exclude x\.com
+            --exclude scholar\.google\.com
+            --exclude instagram\.com
+            --exclude threads\.com
+            --exclude facebook\.com
             index.html
             https://raw.githubusercontent.com/EricXu-0805/EricXu-0805/HEAD/README.md
           fail: true
